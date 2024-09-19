@@ -37,8 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    ### Django apps
+    'bimverse',
     ### New Installs
     'graphene_django',
+    'django_admin_search',
 ]
 
 MIDDLEWARE = [
@@ -128,5 +131,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Modified Settings
 
 GRAPHENE = {
-    "SCHEMA": "django_root.schema.schema"
+    "SCHEMA": "bimverse.schema.schema",
 }
