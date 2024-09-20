@@ -51,20 +51,27 @@ class master(AdvancedSearchAdmin):
 			q.delete()
 	hardDeleteSelected.short_description = "Hard Delete Selected"
 
-class dataPacket_admin(master):
-	
-	readonly_fields = m_readonly_fields + ["dataItemList",]
 
-class dataItem_admin(master):
-	list_filter = m_list_filter + ["processed"]
-	readonly_fields = m_readonly_fields + ["getDictionary",]
-	def setProcessedTrue(self, request, queryset):
-		queryset.update(processed=True)
-	setProcessedTrue.short_description = "setProcessedTrue"
-	def setProcessedFalse(self, request, queryset):
-		queryset.update(processed=False)
-	setProcessedFalse.short_description = "setProcessedFalse"
-	actions = ['setProcessedTrue','setProcessedFalse',]
+class edgeObject_from_inline(admin.TabularInline):
+	model = edgeObject
+	fieldsets = [(None,				 {'fields': ['name','identifier','nodeObject_to',]}), ]
+	fk_name = "nodeObject_from"
+	extra = 0
+
+class edgeObject_to_inline(admin.TabularInline):
+	model = edgeObject
+	fieldsets = [(None,				 {'fields': ['name','identifier','nodeObject_from',]}), ]
+	fk_name = "nodeObject_to"
+	extra = 0
+
+class geometryObject_inline(admin.TabularInline):
+	model = geometryObject
+	fieldsets = [(None,				 {'fields': ['name','geometry',]}), ]
+	extra = 0
+
+class nodeObject_admin(master):
+	fieldsets = [(None,				 {'fields': ['name','identifier','enabled',]}), ]
+	inlines = (geometryObject_inline, edgeObject_from_inline, edgeObject_to_inline,)
 
 for subclass in parentModel.__subclasses__():
 	try:

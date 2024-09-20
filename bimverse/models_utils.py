@@ -17,7 +17,8 @@ class DataFieldFormField(forms.CharField):
 
 class DataField(models.TextField):
 	def __init__(self, *args, **kwargs):
-		kwargs['max_length'] = 9999
+		kwargs['max_length'] =	16777215
+
 		kwargs['default'] = {}
 		kwargs['blank'] = True
 		kwargs['null'] = True

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     ### New Installs
     'graphene_django',
     'django_admin_search',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
