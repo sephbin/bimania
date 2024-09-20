@@ -1,7 +1,6 @@
 from django.db import models
 from .models_utils import *
 
-
 class edgeObject(parentModel):
     nodeObject_from =       models.ForeignKey('nodeObject', on_delete=models.CASCADE, related_name='edgeFrom')
     nodeObject_to =         models.ForeignKey('nodeObject', on_delete=models.CASCADE, related_name='edgeTo')
@@ -14,7 +13,7 @@ class nodeObject(parentModel):
         return self.name
 
 class geometryObject(parentModel):
-    parentObject =  models.ForeignKey(nodeObject, on_delete=models.CASCADE, related_name="%(app_label)s_%(class)s_related")
+    parentObject =  models.ForeignKey(nodeObject, on_delete=models.CASCADE, related_name="geometryObjects")
     # geometry =      DataField()
     def __str__(self):
         return self.name

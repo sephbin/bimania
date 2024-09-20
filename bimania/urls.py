@@ -24,5 +24,6 @@ from graphene_django.views import GraphQLView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("graphql", GraphQLView.as_view(graphiql=True)),
+    path(r'bimverse/', include('bimverse.urls')),
     path('api-auth/', include('rest_framework.urls'))
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
