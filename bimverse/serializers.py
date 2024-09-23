@@ -10,11 +10,25 @@ class geometryObject_serializer(serializers.ModelSerializer):
         model = geometryObject
         fields = ['id','identifier','name', 'geometry']
 
+class edgeObject_to_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = edgeObject
+        fields = ['name','nodeObject_to']
+
+class edgeObject_from_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = edgeObject
+        fields = ['name','nodeObject_from']
+
 class nodeObject_serializer(serializers.HyperlinkedModelSerializer):
     geometryObjects = geometryObject_serializer(many=True, read_only=True)
+    nodeObject_to = edgeObject_to_serializer(source='edgeFrom', many=True, read_only=True)
+    nodeObject_from = edgeObject_to_serializer(source='edgeTo', many=True, read_only=True)
+    # nodeObject_to = serializers.SlugRelatedField(source='edgeFrom', many=True, read_only=True, slug_field='nodeObject_to.id' )
+    # nodeObject_from = serializers.SlugRelatedField(source='edgeTo', many=True, read_only=True, slug_field='nodeObject_from.id' )
     class Meta:
         model = nodeObject
-        fields = ['id','name', 'identifier', 'enabled', 'geometryObjects',]
+        fields = ['id','name', 'identifier', 'enabled', 'geometryObjects', 'nodeObject_to','nodeObject_from']
 
 
 class edgeObject_serializer(serializers.ModelSerializer):
