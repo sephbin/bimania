@@ -8,6 +8,12 @@ class geometryObject_serializer(serializers.ModelSerializer):
     geometry = serializers.JSONField()
     class Meta:
         model = geometryObject
+        fields = ['id','geometry','parentObject']
+
+class geometryObjectNested_serializer(serializers.ModelSerializer):
+    geometry = serializers.JSONField()
+    class Meta:
+        model = geometryObject
         fields = ['id','identifier','name', 'geometry']
 
 class edgeObject_to_serializer(serializers.ModelSerializer):
@@ -21,7 +27,7 @@ class edgeObject_from_serializer(serializers.ModelSerializer):
         fields = ['name','nodeObject_from']
 
 class nodeObject_serializer(serializers.HyperlinkedModelSerializer):
-    geometryObjects = geometryObject_serializer(many=True, read_only=True)
+    geometryObjects = geometryObjectNested_serializer(many=True, read_only=True)
     nodeObject_to = edgeObject_to_serializer(source='edgeFrom', many=True, read_only=True)
     nodeObject_from = edgeObject_from_serializer(source='edgeTo', many=True, read_only=True)
     # nodeObject_to = serializers.SlugRelatedField(source='edgeFrom', many=True, read_only=True, slug_field='nodeObject_to.id' )

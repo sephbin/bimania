@@ -10,6 +10,7 @@ from .rest_urls import *
 router = routers.DefaultRouter()
 router.register(r'nodes', nodeObject_viewSet)
 router.register(r'edges', edgeObject_viewSet)
+router.register(r'geometries', geometryObject_viewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
