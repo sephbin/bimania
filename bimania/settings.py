@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'django_admin_search',
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

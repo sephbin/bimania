@@ -1,23 +1,26 @@
 from django.urls import path, include
-from rest_framework import routers, serializers, viewsets
+from rest_framework import viewsets, filters
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from .models import *
-
-# Serializers define the API representation.
-
-class geometryObject_serializer(serializers.ModelSerializer):
-    geometry = serializers.JSONField()
-    class Meta:
-        model = geometryObject
-        fields = ['name', 'geometry']
-
-class nodeObject_serializer(serializers.HyperlinkedModelSerializer):
-    geometryObjects = geometryObject_serializer(many=True, read_only=True)
-    class Meta:
-        model = nodeObject
-        fields = ['name', 'identifier', 'enabled', 'geometryObjects',]
-
+from .serializers import *
 
 # ViewSets define the view behavior.
 class nodeObject_viewSet(viewsets.ModelViewSet):
     queryset = nodeObject.objects.all()
     serializer_class = nodeObject_serializer
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter , DjangoFilterBackend, ]
+    filterset_fields = {'updated':['gte', 'lte', 'exact', 'gt', 'lt'], 'created':['gte', 'lte', 'exact', 'gt', 'lt']}
+    search_fields = ('$name','$identifier',)
+    ordering_fields = '__all__'
+    ordering = ['createdBy','pk',]
+
+class edgeObject_viewSet(viewsets.ModelViewSet):
+    queryset = edgeObject.objects.all()
+    serializer_class = edgeObject_serializer
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter , DjangoFilterBackend, ]
+    filterset_fields = {'updated':['gte', 'lte', 'exact', 'gt', 'lt'], 'created':['gte', 'lte', 'exact', 'gt', 'lt']}
+    search_fields = ('$name','$identifier',)
+    ordering_fields = '__all__'
+    ordering = ['createdBy','pk',]
