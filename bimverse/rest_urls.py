@@ -12,7 +12,7 @@ class nodeObject_viewSet(viewsets.ModelViewSet):
     serializer_class = nodeObject_serializer
     filter_backends = [filters.OrderingFilter, filters.SearchFilter , DjangoFilterBackend, ]
     filterset_fields = {'updated':['gte', 'lte', 'exact', 'gt', 'lt'],
-    'created':['gte', 'lte', 'exact', 'gt', 'lt']
+    'created':['gte', 'lte', 'exact', 'gt', 'lt'],
     'modularClassTags__name':['exact']
     }
     search_fields = ('$name','$identifier',)
