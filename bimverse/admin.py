@@ -70,8 +70,10 @@ class geometryObject_inline(admin.TabularInline):
 	extra = 0
 
 class nodeObject_admin(master):
-	fieldsets = [(None,				 {'fields': ['name','identifier','enabled',]}), ]
+	fieldsets = [(None,				 {'fields': ['name','identifier','enabled','modularClassTags']}), ]
+	filter_horizontal = ('modularClassTags',)
 	inlines = (geometryObject_inline, edgeObject_from_inline, edgeObject_to_inline,)
+
 
 for subclass in parentModel.__subclasses__():
 	try:
@@ -82,3 +84,5 @@ for subclass in parentModel.__subclasses__():
 			adminOb = master
 		admin.site.register(subclass, adminOb)
 	except: pass
+
+admin.site.register(modularClassTag)

@@ -8,7 +8,7 @@ class geometryObject_serializer(serializers.ModelSerializer):
     geometry = serializers.JSONField()
     class Meta:
         model = geometryObject
-        fields = ['id','geometry','parentObject']
+        fields = ['id','name','geometry','parentObject']
 
 class geometryObjectNested_serializer(serializers.ModelSerializer):
     geometry = serializers.JSONField()
