@@ -36,6 +36,15 @@ class nodeObject_serializer(serializers.HyperlinkedModelSerializer):
         model = nodeObject
         fields = ['id','name', 'identifier', 'enabled', 'geometryObjects', 'nodeObject_to','nodeObject_from']
 
+class nodeObject__light_serializer(serializers.HyperlinkedModelSerializer):
+    nodeObject_to = edgeObject_to_serializer(source='edgeFrom', many=True, read_only=True)
+    nodeObject_from = edgeObject_from_serializer(source='edgeTo', many=True, read_only=True)
+    # nodeObject_to = serializers.SlugRelatedField(source='edgeFrom', many=True, read_only=True, slug_field='nodeObject_to.id' )
+    # nodeObject_from = serializers.SlugRelatedField(source='edgeTo', many=True, read_only=True, slug_field='nodeObject_from.id' )
+    class Meta:
+        model = nodeObject
+        fields = ['id','name', 'identifier', 'enabled', 'geometryObjects', 'nodeObject_to','nodeObject_from']
+
 
 class edgeObject_serializer(serializers.ModelSerializer):
     class Meta:

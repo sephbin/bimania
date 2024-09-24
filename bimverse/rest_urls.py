@@ -16,6 +16,16 @@ class nodeObject_viewSet(viewsets.ModelViewSet):
     ordering_fields = '__all__'
     ordering = ['createdBy','pk',]
 
+
+class nodeObject_light_viewSet(viewsets.ModelViewSet):
+    queryset = nodeObject.objects.all()
+    serializer_class = nodeObject__light_serializer
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter , DjangoFilterBackend, ]
+    filterset_fields = {'updated':['gte', 'lte', 'exact', 'gt', 'lt'], 'created':['gte', 'lte', 'exact', 'gt', 'lt']}
+    search_fields = ('$name','$identifier',)
+    ordering_fields = '__all__'
+    ordering = ['createdBy','pk',]
+
 class edgeObject_viewSet(viewsets.ModelViewSet):
     queryset = edgeObject.objects.all()
     serializer_class = edgeObject_serializer
