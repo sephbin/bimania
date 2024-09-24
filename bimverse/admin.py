@@ -70,7 +70,7 @@ class geometryObject_inline(admin.TabularInline):
 	extra = 0
 
 class nodeObject_admin(master):
-	fieldsets = [(None,				 {'fields': ['name','identifier','enabled','modularClassTags', 'data']}), ]
+	fieldsets = [(None,				 {'fields': ['name','identifier','enabled','modularClassTags', '']}), ]
 	filter_horizontal = ('modularClassTags',)
 	inlines = (geometryObject_inline, edgeObject_from_inline, edgeObject_to_inline,)
 

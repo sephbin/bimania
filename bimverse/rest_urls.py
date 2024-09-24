@@ -41,6 +41,8 @@ class edgeObject_viewSet(viewsets.ModelViewSet):
     ordering_fields = '__all__'
     ordering = ['createdBy','pk',]
 
+
+
 class geometryObject_viewSet(viewsets.ModelViewSet):
     queryset = geometryObject.objects.all()
     serializer_class = geometryObject_serializer
@@ -49,3 +51,11 @@ class geometryObject_viewSet(viewsets.ModelViewSet):
     search_fields = ('$name','$identifier',)
     ordering_fields = '__all__'
     ordering = ['createdBy','pk',]
+
+class modularClassTag_viewSet(viewsets.ModelViewSet):
+    queryset = modularClassTag.objects.all()
+    serializer_class = modularClassTag_serializer
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter , DjangoFilterBackend, ]
+    search_fields = ('$name',)
+    ordering_fields = '__all__'
+    ordering = ['name',]

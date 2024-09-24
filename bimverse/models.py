@@ -20,7 +20,6 @@ class geometryObject(parentModel):
 		return self.name
 
 class modularClassTag(models.Model):
-	name =                      models.CharField(max_length=256, default = "-empty name-")
+	name =                      models.CharField(max_length=256, unique=True)
 	def __str__(self):
 		return self.name
-	
