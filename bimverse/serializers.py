@@ -52,7 +52,7 @@ class nodeObject__light_serializer(serializers.HyperlinkedModelSerializer):
         fields = ['id','name', 'identifier', 'enabled', 'data', 'modularClassTags','geometryObjects', 'nodeObject_to','nodeObject_from']
 
 
-class edgeObject_serializer(serializers.HyperlinkedModelSerializer):
+class edgeObject_serializer(serializers.ModelSerializer):
     class Meta:
         model = edgeObject
         
