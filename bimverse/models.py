@@ -15,6 +15,7 @@ class nodeObject(parentModel):
 
 class geometryObject(parentModel):
 	parentObject =  models.ForeignKey(nodeObject, on_delete=models.CASCADE, related_name="geometryObjects")
+	
 	# geometry =      DataField()
 	def __str__(self):
 		return self.name
