@@ -1,24 +1,41 @@
 from django.urls import path, include
+import django_filters
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework_json_api.filters import QueryParameterValidationFilter
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import *
 from .serializers import *
 
 # ViewSets define the view behavior.
+class madeUpName(django_filters.FilterSet):
+    x = django_filters.CharFilter(field_name='dictionary__x')
+    class Meta:
+        model = nodeObject
+        fields = ["x"]
+
 class nodeObject_viewSet(viewsets.ModelViewSet):
     queryset = nodeObject.objects.all()
     serializer_class = nodeObject_serializer
-    filter_backends = [filters.OrderingFilter, filters.SearchFilter , DjangoFilterBackend, ]
-    filterset_fields = {'updated':['gte', 'lte', 'exact', 'gt', 'lt'],
-    'created':['gte', 'lte', 'exact', 'gt', 'lt'],
-    'modularClassTags__name':['exact'],
-    'project':['exact']
-    }
-    search_fields = ('$name','$identifier',)
-    ordering_fields = '__all__'
-    ordering = ['createdBy','pk',]
+    filter_backends = [
+    # filters.OrderingFilter,
+    filters.SearchFilter ,
+    DjangoFilterBackend,
+    # QueryParameterValidationFilter
+    ]
+    # filterset_fields = {
+    # 'updated':['gte', 'lte', 'exact', 'gt', 'lt'],
+    # 'created':['gte', 'lte', 'exact', 'gt', 'lt'],
+    # 'modularClassTags__name':['exact'],
+    # 'project':['exact'],
+    # 'x':['contains'],
+    # }
+    # filterset_fields = ['dictionary']
+    filterset_class = madeUpName
+    search_fields = ('$name','$identifier','dictionary')
+    #ordering_fields = '__all__'
+    #ordering = ['createdBy','pk',]
 
 
 class nodeObject_light_viewSet(viewsets.ModelViewSet):
@@ -59,6 +76,7 @@ class edgeObject_nested_viewSet(viewsets.ModelViewSet):
     'nodeObject_from__modularClassTags__name':['exact'],
     'nodeObject_to':['exact'],
     'nodeObject_to__modularClassTags__name':['exact']
+
     }
     search_fields = ('$name','$identifier',)
     ordering_fields = '__all__'

@@ -40,11 +40,12 @@ class nodeObject_serializer(serializers.HyperlinkedModelSerializer):
     modularClassTags = serializers.SlugRelatedField(queryset=modularClassTag.objects.all(), many=True, slug_field='name')
     # modularClassTags = serializers.StringRelatedField(many=True)
     data = serializers.JSONField()
+    dictionary = serializers.JSONField()
     # nodeObject_to = serializers.SlugRelatedField(source='edgeFrom', many=True, read_only=True, slug_field='nodeObject_to.id' )
     # nodeObject_from = serializers.SlugRelatedField(source='edgeTo', many=True, read_only=True, slug_field='nodeObject_from.id' )
     class Meta:
         model = nodeObject
-        fields = ['id','project','name', 'identifier', 'enabled', 'data', 'modularClassTags','geometryObjects', 'nodeObject_to','nodeObject_from']
+        fields = ['id','dictionary','project','name', 'identifier', 'enabled', 'data', 'modularClassTags','geometryObjects', 'nodeObject_to','nodeObject_from']
 
 class nodeObject__light_serializer(serializers.HyperlinkedModelSerializer):
     nodeObject_to = edgeObject_to_serializer(source='edgeFrom', many=True, read_only=True)

@@ -12,6 +12,7 @@ class nodeObject(parentModel):
 	project = 					models.CharField(max_length=256, default="--none--")
 	connectedNodeObjects =      models.ManyToManyField('self', through='edgeObject', through_fields=('nodeObject_from', 'nodeObject_to'), symmetrical=False)
 	modularClassTags =          models.ManyToManyField('modularClassTag', blank=True, null=True, related_name="nodeObjects")
+	dictionary =             	models.JSONField(default={"default":"dictionary"})
 	def __str__(self):
 		return self.name
 
