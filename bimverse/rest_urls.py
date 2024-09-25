@@ -41,7 +41,9 @@ class edgeObject_viewSet(viewsets.ModelViewSet):
     filterset_fields = {'updated':['gte', 'lte', 'exact', 'gt', 'lt'], 'created':['gte', 'lte', 'exact', 'gt', 'lt'],
     'project':['exact'],
     'nodeObject_from':['exact'],
-    'nodeObject_to':['exact']
+    'nodeObject_from__modularClassTags__name':['exact'],
+    'nodeObject_to':['exact'],
+    'nodeObject_to__modularClassTags__name':['exact']
     }
     search_fields = ('$name','$identifier',)
     ordering_fields = '__all__'
