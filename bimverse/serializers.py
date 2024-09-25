@@ -56,7 +56,8 @@ class edgeObject_serializer(serializers.ModelSerializer):
     class Meta:
         model = edgeObject
         
-        fields = ['id','project','name', 'identifier', 'enabled', 'nodeObject_from','nodeObject_to']
+        fields = ['id','project','name', 'identifier', 'enabled', 'nodeObject_from','nodeObject_to',
+        'nodeObject_from__modularClassTags__name', 'nodeObject_to__modularClassTags__name']
 
 class modularClassTag_serializer(serializers.HyperlinkedModelSerializer):
     class Meta:
