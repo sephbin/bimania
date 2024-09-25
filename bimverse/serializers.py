@@ -26,6 +26,13 @@ class edgeObject_from_serializer(serializers.ModelSerializer):
         model = edgeObject
         fields = ['name','nodeObject_from']
 
+class nodeObject_superlight_serializer(serializers.ModelSerializer):
+    
+    modularClassTags = serializers.SlugRelatedField(queryset=modularClassTag.objects.all(), many=True, slug_field='name')
+    class Meta:
+        model = nodeObject
+        fields = ['id','modularClassTags']
+
 class nodeObject_serializer(serializers.HyperlinkedModelSerializer):
     geometryObjects = geometryObjectNested_serializer(many=True, read_only=True)
     nodeObject_to = edgeObject_to_serializer(source='edgeFrom', many=True, read_only=True)
@@ -56,8 +63,15 @@ class edgeObject_serializer(serializers.ModelSerializer):
     class Meta:
         model = edgeObject
         
-        fields = ['id','project','name', 'identifier', 'enabled', 'nodeObject_from','nodeObject_to',
-        'nodeObject_from__modularClassTags__name', 'nodeObject_to__modularClassTags__name']
+        fields = ['id','project','name', 'identifier', 'enabled', 'nodeObject_from','nodeObject_to']
+
+class edgeObject_nested_serializer(serializers.ModelSerializer):
+    nodeObject_to =     nodeObject_superlight_serializer()
+    nodeObject_from =   nodeObject_superlight_serializer()
+    class Meta:
+        model = edgeObject
+        
+        fields = ['id','project','name', 'identifier', 'enabled', 'nodeObject_from','nodeObject_to']
 
 class modularClassTag_serializer(serializers.HyperlinkedModelSerializer):
     class Meta:

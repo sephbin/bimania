@@ -9,10 +9,11 @@ from .rest_urls import *
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'nodes', nodeObject_viewSet)
-router.register(r'edges', edgeObject_viewSet)
+router.register(r'edges', edgeObject_viewSet, 'edgeObject')
 router.register(r'geometries', geometryObject_viewSet)
 router.register(r'nodes-light', nodeObject_light_viewSet, 'nodes-light')
 router.register(r'modularClasses', modularClassTag_viewSet, )
+router.register(r'edges-nested', edgeObject_nested_viewSet, 'edgeObject_nested')
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

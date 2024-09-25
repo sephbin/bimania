@@ -49,6 +49,21 @@ class edgeObject_viewSet(viewsets.ModelViewSet):
     ordering_fields = '__all__'
     ordering = ['createdBy','pk',]
 
+class edgeObject_nested_viewSet(viewsets.ModelViewSet):
+    queryset = edgeObject.objects.all()
+    serializer_class = edgeObject_nested_serializer
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter , DjangoFilterBackend, ]
+    filterset_fields = {'updated':['gte', 'lte', 'exact', 'gt', 'lt'], 'created':['gte', 'lte', 'exact', 'gt', 'lt'],
+    'project':['exact'],
+    'nodeObject_from':['exact'],
+    'nodeObject_from__modularClassTags__name':['exact'],
+    'nodeObject_to':['exact'],
+    'nodeObject_to__modularClassTags__name':['exact']
+    }
+    search_fields = ('$name','$identifier',)
+    ordering_fields = '__all__'
+    ordering = ['createdBy','pk',]
+
 
 
 class geometryObject_viewSet(viewsets.ModelViewSet):
