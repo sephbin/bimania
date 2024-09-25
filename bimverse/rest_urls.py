@@ -39,7 +39,10 @@ class edgeObject_viewSet(viewsets.ModelViewSet):
     serializer_class = edgeObject_serializer
     filter_backends = [filters.OrderingFilter, filters.SearchFilter , DjangoFilterBackend, ]
     filterset_fields = {'updated':['gte', 'lte', 'exact', 'gt', 'lt'], 'created':['gte', 'lte', 'exact', 'gt', 'lt'],
-    'project':['exact']}
+    'project':['exact'],
+    'nodeObject_from':['exact'],
+    'nodeObject_to':['exact']
+    }
     search_fields = ('$name','$identifier',)
     ordering_fields = '__all__'
     ordering = ['createdBy','pk',]
